@@ -1,2 +1,2 @@
 # transaction
-分布式事务demo
+分布式事务
