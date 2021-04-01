@@ -60,9 +60,10 @@ func (*Tx) Delete(db *gormx.DB, where string, args ...interface{}) error {
 	return db.Where(where, args...).Delete(&Tx{}).Error
 }
 
-func (*Tx) Update(db *gormx.DB, data map[string]interface{}, where string, args ...interface{}) error {
+func (*Tx) Update(db *gormx.DB, data map[string]interface{}, where string, args ...interface{}) (int64, error) {
 	if db == nil {
 		db = Orm()
 	}
-	return db.Model(&Tx{}).Where(where, args...).Update(data).Error
+	db = db.Model(&Tx{}).Where(where, args...).Update(data)
+	return db.RowsAffected, db.Error
 }
