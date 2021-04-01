@@ -10,11 +10,11 @@ var TxRecordHandler = &TxRecord{}
 
 // 事务记录表
 type TxRecord struct {
-	Id      int64 `json:"id" gorm:"primary_key;type:int AUTO_INCREMENT"`
-	TxId    int64 `json:"tx_id" gorm:"column:tx_id;type:int NOT NULL;default:0;comment:'tx_id';index"`
-	MysqlId int64 `json:"mysql_id" gorm:"column:mysql_id;type:int NOT NULL;default:0;comment:'mysql_id';index"`
-	Status  int64 `json:"status" gorm:"column:status;type:int NOT NULL;default:0;comment:'status';index"`
-
+	Id      int64  `json:"id" gorm:"primary_key;type:int AUTO_INCREMENT"`
+	TxId    int64  `json:"tx_id" gorm:"column:tx_id;type:int NOT NULL;default:0;comment:'tx_id';index"`
+	MysqlId int64  `json:"mysql_id" gorm:"column:mysql_id;type:int NOT NULL;default:0;comment:'mysql_id';index"`
+	Status  int64  `json:"status" gorm:"column:status;type:int NOT NULL;default:0;comment:'status';index"`
+	Content string `json:"content" gorm:"column:content;type:varchar(255) NOT NULL;default:'';comment:'事务数据'"`
 	//正常配置
 	CreatedAt time.Time  `json:"created_at" gorm:"column:created_at;NOT NULL;default:CURRENT_TIMESTAMP;type:TIMESTAMP"`
 	UpdatedAt time.Time  `json:"updated_at" gorm:"column:updated_at;NOT NULL;default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;type:TIMESTAMP"`

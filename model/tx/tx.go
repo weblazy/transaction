@@ -11,6 +11,7 @@ var TxHandler = &Tx{}
 // 事务记录表
 type Tx struct {
 	Id     int64 `json:"id" gorm:"primary_key;type:int AUTO_INCREMENT"`
+	Uid    int64 `json:"uid" gorm:"column:uid;type:int NOT NULL;default:0;comment:'用户id';index"`
 	Status int64 `json:"status" gorm:"column:status;type:int NOT NULL;default:0;comment:'0未支付,1已支付';index"`
 	//正常配置
 	CreatedAt time.Time  `json:"created_at" gorm:"column:created_at;NOT NULL;default:CURRENT_TIMESTAMP;type:TIMESTAMP"`
