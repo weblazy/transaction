@@ -53,21 +53,21 @@ type TrxId struct {
 }
 
 func RunTx(redisClient *redis.Client) {
-
-	// 创建事务
-	transaction := tx.Tx{Uid: 1}
-	tx.TxHandler.Insert(nil, &transaction)
-
 	// 对uid为1的用户进行加锁
-	uid := cast.ToString(transaction.Uid)
-	ok, err := redisClient.SetNX("tx_"+uid, transaction.Id, 0).Result()
+
+	uid := "1"
+	ok, err := redisClient.SetNX("tx_"+uid, 1, 0).Result()
 	if !ok {
-		// return
+		return
 	}
 	if err != nil {
 		fmt.Printf("%#v\n", err.Error())
 		return
 	}
+	// 创建事务
+	transaction := tx.Tx{Uid: cast.ToInt64(uid)}
+	tx.TxHandler.Insert(nil, &transaction)
+
 	// 开启钱包事务
 	walletTx := wallet.Orm().Begin()
 	defer walletTx.RollbackUnlessCommitted()
